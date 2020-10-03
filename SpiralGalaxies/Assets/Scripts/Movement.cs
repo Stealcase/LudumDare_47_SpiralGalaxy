@@ -13,7 +13,16 @@ namespace Assets.Scripts
         private InputAction jumpAction;
         private Vector3 forceDir;
         [Range(0,30)]public float speed;
+        [Range(0, 30)] public float maxVelocity;
 
+        [Tooltip("Force used to stop the object when no movement input is given.")]
+        [SerializeField][Range(0,50)] private float stopFriction = 50;
+        [Tooltip("Force used to counteract deviations in the velocity from the input direction, makes turns sharper.")]
+        [SerializeField][Range(0,50)] private float turnFriction = 20;
+        [Tooltip("Force used to help in turning the velocity around for 180 turns and the like.")]
+        [SerializeField] [Range(0, 50)] private float turnAroundFriction = 20;
+
+        public bool ApplyFriction { get; private set; } = true;
 
         public void Awake()
         {
@@ -34,22 +43,16 @@ namespace Assets.Scripts
         {
             if (context.performed)
             {
-                rb.drag = 1;
-                Vector2 direction =  context.ReadValue<Vector2>()*speed;
+                ApplyFriction = false;
+                Vector2 direction =  context.ReadValue<Vector2>();
 
                 Vector3 dir3D = new Vector3(direction.x, 0, direction.y);
 
-
-                if (direction.magnitude < 0.3)
-                {
-                    forceDir = context.ReadValue<Vector2>();
-                    return;
-                }
                 forceDir = dir3D;
             }
             if (context.canceled)
             {
-                rb.drag = 500;
+                ApplyFriction = true;
             }
           
         }
@@ -63,9 +66,32 @@ namespace Assets.Scripts
         }
         public void FixedUpdate()
         {
-            rb.AddForce(forceDir);
-        }
+            if(rb.velocity.sqrMagnitude < maxVelocity)
+            {
+                rb.AddForce(forceDir * speed);
+            }
   
+            //Logic for slowing down when no force is applied
+                if (!ApplyFriction)
+                    return;
 
+                if (forceDir == Vector3.zero)
+                {
+                    rb.AddForce(-rb.velocity * stopFriction, ForceMode.Force);
+                }
+                else
+                {
+                    Vector3 headingVelocity = Vector3.Project(rb.velocity, forceDir);
+                    if (Vector2.Angle(forceDir, headingVelocity) <= 1)
+                    {
+                        rb.AddForce(-(rb.velocity - headingVelocity) * turnFriction, ForceMode.Force);
+                    }
+                    else
+                    {
+                        rb.AddForce(-rb.velocity * turnAroundFriction, ForceMode.Force);
+                    }
+                }
+            }
+        }
     }
-}
+
