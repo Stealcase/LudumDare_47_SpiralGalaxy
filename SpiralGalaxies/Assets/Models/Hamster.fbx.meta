@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 7f3d63eef41050647993e176c5bf11a0
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -3999578356269874737
+    second: Cube|CubeAction
   externalObjects: {}
   materials:
     materialImportMode: 1
