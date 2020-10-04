@@ -31,7 +31,6 @@ public class Timer : MonoBehaviour
     void Update()
     {
         startTime -= Time.deltaTime;
-        print(startTime);
         timerText.text = Mathf.Round(startTime).ToString();
         if (startTime < 0)
         {
