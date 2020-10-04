@@ -1,24 +1,30 @@
 ﻿using Cinemachine;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
 
 namespace Assets.Scripts
 {
-    class Movement : MonoBehaviour, HamsterInput.IHamsterActionsActions
+    public class Movement : MonoBehaviour, HamsterInput.IHamsterActionsActions
     {
         public HamsterInput hamsterInputActions;
         public Rigidbody rb;
 
+        CollisionManager collisions;
         private Vector2 direction;
 
+        public StudioEventEmitter jumpEmitter;
 
         public float turnSmoothTime = 0.1f;
         public Transform hamstar;
         public Transform cam;
         private float turnSmoothVelocity;
 
-
+        private bool IsGrounded
+        {
+            get { return collisions.isGrounded; }
+        }
         [Range(0,30)]public float speed;
         [Range(0, 30)] public float maxVelocity;
 
@@ -33,12 +39,13 @@ namespace Assets.Scripts
 
         public void Awake()
         {
-
+            collisions = GetComponentInChildren<CollisionManager>();
             hamsterInputActions = new HamsterInput();
             hamsterInputActions.HamsterActions.SetCallbacks(this);
         }
         public void OnEnable()
         {
+            GameManager.hamster = this;
             hamsterInputActions.Enable();
 
         }
@@ -63,8 +70,13 @@ namespace Assets.Scripts
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && IsGrounded)
             {
+                if (!jumpEmitter.IsPlaying())
+                {
+                    jumpEmitter.Play();
+                }
+            
                 rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
             }
         }
@@ -89,7 +101,7 @@ namespace Assets.Scripts
 
 
             //Logic for slowing down when no force is applied
-            if (!ApplyFriction)
+            /*if (!ApplyFriction)
                     return;
 
                 if (direction == Vector2.zero)
@@ -106,12 +118,12 @@ namespace Assets.Scripts
                     {
                         rb.AddForce(-rb.velocity * turnAroundFriction, ForceMode.Force);
                     }
-                }
+                }*/
             }
 
         public void OnCamera(InputAction.CallbackContext context)
         {
-            //hrow new System.NotImplementedException();
+
         }
     }
     }
