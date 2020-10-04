@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
     {
         GameManager.hamster.rb.position = spawnPoint.position;
         GameManager.hamster.rb.velocity = Vector3.zero;
+        GameManager.attemptNumber++;
     }
 
 
