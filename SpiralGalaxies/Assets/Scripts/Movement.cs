@@ -5,7 +5,7 @@ using UnityEngine.PlayerLoop;
 
 namespace Assets.Scripts
 {
-    class Movement : MonoBehaviour, HamsterInput.IHamsterActionsActions
+    public class Movement : MonoBehaviour, HamsterInput.IHamsterActionsActions
     {
         public HamsterInput hamsterInputActions;
         public Rigidbody rb;
@@ -39,6 +39,7 @@ namespace Assets.Scripts
         }
         public void OnEnable()
         {
+            GameManager.hamster = this;
             hamsterInputActions.Enable();
 
         }
