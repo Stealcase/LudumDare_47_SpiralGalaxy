@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
 {
 
     public Transform spawnPoint;
+    public GameEvent respawnedGerbil;
     // Start is called before the first frame update
 
     public void OnEnable()
@@ -23,6 +24,7 @@ public class Spawner : MonoBehaviour
         GameManager.hamster.rb.position = spawnPoint.position;
         GameManager.hamster.rb.velocity = Vector3.zero;
         GameManager.attemptNumber++;
+        respawnedGerbil.Raise();
     }
 
 
