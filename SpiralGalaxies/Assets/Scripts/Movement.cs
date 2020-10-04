@@ -15,7 +15,7 @@ namespace Assets.Scripts
 
         public float turnSmoothTime = 0.1f;
         public Transform hamstar;
-        private Transform cam;
+        public Transform cam;
         private float turnSmoothVelocity;
 
 
@@ -33,7 +33,7 @@ namespace Assets.Scripts
 
         public void Awake()
         {
-            cam = GetComponent<CinemachineBrain>().transform;
+
             hamsterInputActions = new HamsterInput();
             hamsterInputActions.HamsterActions.SetCallbacks(this);
         }
