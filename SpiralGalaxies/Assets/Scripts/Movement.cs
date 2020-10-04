@@ -60,10 +60,13 @@ namespace Assets.Scripts
             {
                 ApplyFriction = false;
                 direction =  context.ReadValue<Vector2>();
+                rb.angularDrag = 0;
             }
             if (context.canceled)
             {
+                direction = Vector2.zero;
                 ApplyFriction = true;
+                rb.angularDrag = 500;
             }
           
         }
@@ -101,12 +104,11 @@ namespace Assets.Scripts
 
 
             //Logic for slowing down when no force is applied
-            if (!ApplyFriction)
+           if (!ApplyFriction)
                     return;
 
                 if (direction == Vector2.zero)
                 {
-                    rb.AddForce(-rb.velocity * stopFriction, ForceMode.Force);
                 }
                 else
                 {
@@ -118,7 +120,7 @@ namespace Assets.Scripts
                     {
                         rb.AddForce(-rb.velocity * turnAroundFriction, ForceMode.Force);
                     }
-                }
+                } 
             }
 
         public void OnCamera(InputAction.CallbackContext context)
