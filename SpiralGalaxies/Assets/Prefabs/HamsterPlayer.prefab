@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125960745}
-  m_LocalRotation: {x: -0.014952652, y: -0.123473525, z: -0.001860708, w: 0.99223346}
-  m_LocalPosition: {x: 0.30360925, y: 0.05379522, z: -0.38978958}
+  m_LocalRotation: {x: -0.014993309, y: -0.09942261, z: -0.0014982685, w: 0.9949312}
+  m_LocalPosition: {x: 0.30360937, y: 0.05379522, z: -0.38978958}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 243108914}
@@ -234,7 +234,7 @@ Animator:
   m_GameObject: {fileID: 128362789496842126}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c087db91767b1ea43bb43adcf9f70e09, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3148092492153546443}
   - component: {fileID: 6532756669602853198}
+  - component: {fileID: 4308362014547443795}
   m_Layer: 0
   m_Name: HamsterPlayer
   m_TagString: Untagged
@@ -343,6 +344,29 @@ MonoBehaviour:
   stopFriction: 50
   turnFriction: 20
   turnAroundFriction: 20
+--- !u!114 &4308362014547443795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292299174025306090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Music/Music
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!114 &9005508855962087518
 MonoBehaviour:
   m_ObjectHideFlags: 0
