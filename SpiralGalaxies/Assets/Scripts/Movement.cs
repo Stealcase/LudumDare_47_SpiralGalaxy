@@ -101,7 +101,7 @@ namespace Assets.Scripts
 
 
             //Logic for slowing down when no force is applied
-            /*if (!ApplyFriction)
+            if (!ApplyFriction)
                     return;
 
                 if (direction == Vector2.zero)
@@ -118,7 +118,7 @@ namespace Assets.Scripts
                     {
                         rb.AddForce(-rb.velocity * turnAroundFriction, ForceMode.Force);
                     }
-                }*/
+                }
             }
 
         public void OnCamera(InputAction.CallbackContext context)
