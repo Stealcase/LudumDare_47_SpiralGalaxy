@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4154014671897108091}
   - component: {fileID: 7322816939963285252}
+  - component: {fileID: 5095144380431469507}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -288,6 +289,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5352029430528515846}
+--- !u!114 &5095144380431469507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028992407041419954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/SFX/hurt
+  PlayEvent: 0
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1292299174025306090
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 489590753}
+  jumpEmitter: {fileID: 5095144380431469507}
   turnSmoothTime: 1.49
   hamstar: {fileID: 4154014671897108091}
   cam: {fileID: 0}
@@ -439,6 +464,7 @@ GameObject:
   - component: {fileID: 5352029430528515846}
   - component: {fileID: 489590753}
   - component: {fileID: 3386401771380802277}
+  - component: {fileID: 6597075544618405303}
   m_Layer: 0
   m_Name: Hamster Object
   m_TagString: Untagged
@@ -490,6 +516,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
+  emitterSource: {fileID: 6597075544618405303}
+--- !u!114 &6597075544618405303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352029430528515847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/SFX/hurt
+  PlayEvent: 0
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &5352029431016275718
 GameObject:
   m_ObjectHideFlags: 0

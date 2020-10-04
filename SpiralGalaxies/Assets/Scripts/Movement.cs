@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
@@ -13,6 +14,7 @@ namespace Assets.Scripts
         CollisionManager collisions;
         private Vector2 direction;
 
+        public StudioEventEmitter jumpEmitter;
 
         public float turnSmoothTime = 0.1f;
         public Transform hamstar;
@@ -70,6 +72,11 @@ namespace Assets.Scripts
         {
             if (context.performed && IsGrounded)
             {
+                if (!jumpEmitter.IsPlaying())
+                {
+                    jumpEmitter.Play();
+                }
+            
                 rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
             }
         }
