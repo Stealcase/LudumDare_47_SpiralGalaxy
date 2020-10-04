@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
 
@@ -9,9 +10,15 @@ namespace Assets.Scripts
         public HamsterInput hamsterInputActions;
         public Rigidbody rb;
 
-        private InputAction moveAction;
-        private InputAction jumpAction;
-        private Vector3 forceDir;
+        private Vector2 direction;
+
+
+        public float turnSmoothTime = 0.1f;
+        public Transform hamstar;
+        private Transform cam;
+        private float turnSmoothVelocity;
+
+
         [Range(0,30)]public float speed;
         [Range(0, 30)] public float maxVelocity;
 
@@ -26,6 +33,7 @@ namespace Assets.Scripts
 
         public void Awake()
         {
+            cam = GetComponent<CinemachineBrain>().transform;
             hamsterInputActions = new HamsterInput();
             hamsterInputActions.HamsterActions.SetCallbacks(this);
         }
@@ -44,11 +52,7 @@ namespace Assets.Scripts
             if (context.performed)
             {
                 ApplyFriction = false;
-                Vector2 direction =  context.ReadValue<Vector2>();
-
-                Vector3 dir3D = new Vector3(direction.x, 0, direction.y);
-
-                forceDir = dir3D;
+                direction =  context.ReadValue<Vector2>();
             }
             if (context.canceled)
             {
@@ -66,23 +70,35 @@ namespace Assets.Scripts
         }
         public void FixedUpdate()
         {
-            if(rb.velocity.sqrMagnitude < maxVelocity)
+            Vector3 headingVelocity = Vector3.Project(rb.velocity, direction);
+
+
+
+            //Create a Target Angle By getting the Degrees of The direction, then adding the camera 
+            float hamsterY = hamstar.eulerAngles.y;
+                float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + hamsterY;
+                float angle = Mathf.SmoothDampAngle(hamsterY, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            hamstar.rotation = Quaternion.Euler(0f, angle, 0f);
+            Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0f) * Vector3.forward;
+            if (rb.velocity.sqrMagnitude < maxVelocity)
             {
-                rb.AddForce(forceDir * speed);
+            
+                rb.AddForce(moveDir * speed);
+                
             }
-  
+
+
             //Logic for slowing down when no force is applied
-                if (!ApplyFriction)
+            if (!ApplyFriction)
                     return;
 
-                if (forceDir == Vector3.zero)
+                if (direction == Vector2.zero)
                 {
                     rb.AddForce(-rb.velocity * stopFriction, ForceMode.Force);
                 }
                 else
                 {
-                    Vector3 headingVelocity = Vector3.Project(rb.velocity, forceDir);
-                    if (Vector2.Angle(forceDir, headingVelocity) <= 1)
+                    if (Vector3.Angle(direction, headingVelocity) <= 1)
                     {
                         rb.AddForce(-(rb.velocity - headingVelocity) * turnFriction, ForceMode.Force);
                     }
@@ -92,6 +108,11 @@ namespace Assets.Scripts
                     }
                 }
             }
+
+        public void OnCamera(InputAction.CallbackContext context)
+        {
+            //hrow new System.NotImplementedException();
         }
+    }
     }
 

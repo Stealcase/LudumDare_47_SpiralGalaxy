@@ -33,6 +33,14 @@ public class @HamsterInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Camera"",
+                    ""type"": ""Value"",
+                    ""id"": ""ab31812c-2ec2-4010-95ac-d98ea0fdd678"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -112,6 +120,39 @@ public class @HamsterInput : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""MouseCam"",
+                    ""id"": ""2c0dbe87-88a5-431a-bada-11083698d197"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2fefb49d-c3c2-44e2-b649-89b31fb28355"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""c8e372db-fa9b-4986-afe8-cb4ff74f5f40"",
+                    ""path"": ""<Mouse>/position/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -122,6 +163,7 @@ public class @HamsterInput : IInputActionCollection, IDisposable
         m_HamsterActions = asset.FindActionMap("HamsterActions", throwIfNotFound: true);
         m_HamsterActions_Move = m_HamsterActions.FindAction("Move", throwIfNotFound: true);
         m_HamsterActions_Jump = m_HamsterActions.FindAction("Jump", throwIfNotFound: true);
+        m_HamsterActions_Camera = m_HamsterActions.FindAction("Camera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -173,12 +215,14 @@ public class @HamsterInput : IInputActionCollection, IDisposable
     private IHamsterActionsActions m_HamsterActionsActionsCallbackInterface;
     private readonly InputAction m_HamsterActions_Move;
     private readonly InputAction m_HamsterActions_Jump;
+    private readonly InputAction m_HamsterActions_Camera;
     public struct HamsterActionsActions
     {
         private @HamsterInput m_Wrapper;
         public HamsterActionsActions(@HamsterInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_HamsterActions_Move;
         public InputAction @Jump => m_Wrapper.m_HamsterActions_Jump;
+        public InputAction @Camera => m_Wrapper.m_HamsterActions_Camera;
         public InputActionMap Get() { return m_Wrapper.m_HamsterActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -194,6 +238,9 @@ public class @HamsterInput : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_HamsterActionsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_HamsterActionsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_HamsterActionsActionsCallbackInterface.OnJump;
+                @Camera.started -= m_Wrapper.m_HamsterActionsActionsCallbackInterface.OnCamera;
+                @Camera.performed -= m_Wrapper.m_HamsterActionsActionsCallbackInterface.OnCamera;
+                @Camera.canceled -= m_Wrapper.m_HamsterActionsActionsCallbackInterface.OnCamera;
             }
             m_Wrapper.m_HamsterActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -204,6 +251,9 @@ public class @HamsterInput : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Camera.started += instance.OnCamera;
+                @Camera.performed += instance.OnCamera;
+                @Camera.canceled += instance.OnCamera;
             }
         }
     }
@@ -212,5 +262,6 @@ public class @HamsterInput : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnCamera(InputAction.CallbackContext context);
     }
 }
