@@ -60,10 +60,13 @@ namespace Assets.Scripts
             {
                 ApplyFriction = false;
                 direction =  context.ReadValue<Vector2>();
+                rb.angularDrag = 0;
             }
             if (context.canceled)
             {
+                direction = Vector2.zero;
                 ApplyFriction = true;
+                rb.angularDrag = 300;
             }
           
         }
@@ -76,7 +79,7 @@ namespace Assets.Scripts
                 {
                     jumpEmitter.Play();
                 }
-            
+
                 rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
             }
         }
@@ -101,24 +104,24 @@ namespace Assets.Scripts
 
 
             //Logic for slowing down when no force is applied
-            /*if (!ApplyFriction)
+           if (!ApplyFriction)
                     return;
 
-                if (direction == Vector2.zero)
+                if (direction == Vector2.zero && IsGrounded)
                 {
-                    rb.AddForce(-rb.velocity * stopFriction, ForceMode.Force);
-                }
+                rb.AddForce(-(rb.velocity - headingVelocity) * stopFriction, ForceMode.Force);
+            }
                 else
                 {
-                    if (Vector3.Angle(direction, headingVelocity) <= 1)
+                    if (Vector3.Angle(direction, headingVelocity ) <= 1 && IsGrounded)
                     {
                         rb.AddForce(-(rb.velocity - headingVelocity) * turnFriction, ForceMode.Force);
                     }
-                    else
+                    else if(IsGrounded)
                     {
                         rb.AddForce(-rb.velocity * turnAroundFriction, ForceMode.Force);
                     }
-                }*/
+                } 
             }
 
         public void OnCamera(InputAction.CallbackContext context)

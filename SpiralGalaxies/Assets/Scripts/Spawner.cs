@@ -21,15 +21,11 @@ public class Spawner : MonoBehaviour
     public void Respawn()
     {
         GameManager.hamster.rb.position = spawnPoint.position;
-        StartCoroutine(TurnOffPhysics());
+        GameManager.hamster.rb.velocity = Vector3.zero;
+        GameManager.attemptNumber++;
     }
 
-    public IEnumerator TurnOffPhysics()
-    {
-        GameManager.hamster.rb.isKinematic = true;
-        yield return new WaitForFixedUpdate();
-        GameManager.hamster.rb.isKinematic = false;
-    }
+
 
 
 

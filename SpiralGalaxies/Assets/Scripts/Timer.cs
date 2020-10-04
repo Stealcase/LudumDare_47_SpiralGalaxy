@@ -11,6 +11,8 @@ public class Timer : MonoBehaviour
     public float startTime = 10f;
     private float storedTime;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI attemptText;
     public GameEvent timeRunOut;
 
     // Update is called once per frame
@@ -18,10 +20,12 @@ public class Timer : MonoBehaviour
     public void OnEnable()
     {
         storedTime = startTime;
+        levelText.text = GameManager.currentLevel.ToString();
     }
     public void ResetTime()
     {
         startTime = storedTime;
+        attemptText.text = GameManager.attemptNumber.ToString();
     }
 
     public void TimeOut()
