@@ -23,7 +23,7 @@ public class CollisionManager : MonoBehaviour
     }
     public void OnCollisionEnter(Collision col)
     {
-        if (col.relativeVelocity.magnitude > 3)
+        if (col.relativeVelocity.magnitude > 8)
         {
             if (!emitterSource.IsPlaying())
             {
