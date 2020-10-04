@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:SpiralGalaxies/Assets/Models/HamsterEars.mat.meta
 fileFormatVersion: 2
 guid: b833787ae477e144c8bc2f7e2ab981f6
 NativeFormatImporter:
@@ -6,3 +7,13 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: aff7029936b239c4095aa823df4c4ad4
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> Stashed changes:SpiralGalaxies/Assets/Plugins/RainbowAssets/!Core/Scripts/Editor.meta
