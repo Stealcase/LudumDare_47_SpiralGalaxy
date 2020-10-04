@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         public static Movement hamster; 
         public static int currentLevel = 0;
-
+        public static int attemptNumber = 0;
 
         public static Spawner spawner;
         public static Timer timer; 
